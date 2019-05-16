@@ -67,17 +67,17 @@ for s in range(nprac):
 
     image = join(cats_dir, r, '{}{}.png'.format(r, sid))
     ttype = ttype_labels[r]
-    practice_stimuli.append({'Image': image, 'Category': 'Cat', 'Trial Type': ttype,
-                             'Stimulus ID': 'Cat' + sid})
+    practice_stimuli.append({'Image': image, 'Category': 'Cat', 'Trial_Type': ttype,
+                             'Stimulus_ID': 'Cat' + sid})
 
     image = join(dogs_dir, r, '{}{}.png'.format(r, sid))
     ttype = ttype_labels[r]
-    practice_stimuli.append({'Image': image, 'Category': 'Dog', 'Trial Type': ttype,
-                             'Stimulus ID': 'Dog' + sid})
+    practice_stimuli.append({'Image': image, 'Category': 'Dog', 'Trial_Type': ttype,
+                             'Stimulus_ID': 'Dog' + sid})
 
 np.random.shuffle(practice_stimuli)
 for t, stim in enumerate(practice_stimuli):
-    stim['Trial Number'] = t - nprac * 2 + 1
+    stim['Trial'] = t - nprac * 2 + 1
 
 trial_stimuli = []
 for s in range(nstim):
@@ -86,24 +86,24 @@ for s in range(nstim):
     r = np.random.choice(['adv', 'flp', 'img'])
     image = join(cats_dir, r, '{}{}.png'.format(r, sid))
     ttype = ttype_labels[r]
-    trial_stimuli.append({'Image': image, 'Category': 'Cat', 'Trial Type': ttype,
-                          'Stimulus ID': 'Cat' + sid})
+    trial_stimuli.append({'Image': image, 'Category': 'Cat', 'Trial_Type': ttype,
+                          'Stimulus_ID': 'Cat' + sid})
 
     r = np.random.choice(['adv', 'flp', 'img'])
     image = join(dogs_dir, r, '{}{}.png'.format(r, sid))
     ttype = ttype_labels[r]
-    trial_stimuli.append({'Image': image, 'Category': 'Dog', 'Trial Type': ttype,
-                          'Stimulus ID': 'Dog' + sid})
+    trial_stimuli.append({'Image': image, 'Category': 'Dog', 'Trial_Type': ttype,
+                          'Stimulus_ID': 'Dog' + sid})
 
     r = np.random.choice(['cat', 'dog', 'neither'])
     label = false_labels[r]
     image = join(false_dir, r, '{}{}.png'.format(label, sid))
-    trial_stimuli.append({'Image': image, 'Category': r.title(), 'Trial Type': 'False Trial',
-                          'Stimulus ID': 'False' + sid})
+    trial_stimuli.append({'Image': image, 'Category': r.title(), 'Trial_Type': 'False Trial',
+                          'Stimulus_ID': 'False' + sid})
 
 np.random.shuffle(trial_stimuli)
 for t, stim in enumerate(trial_stimuli):
-    stim['Trial Number'] = t+1
+    stim['Trial'] = t+1
 
 
 def trial(stimulus):
@@ -144,7 +144,7 @@ def trial(stimulus):
     else:
         key_press = keys_pressed[0]
 
-    stimulus['Subject ID'] = subject_id
+    stimulus['Subject_ID'] = subject_id
     stimulus['Response'] = key_press[0]
     if not np.isnan(key_press[1]):
         stimulus['RT'] = int(key_press[1] * 1000)
@@ -172,7 +172,7 @@ else:
     dog_pic = visual.ImageStim(win, image='stimuli/example_dog.jpg', size=(imsize, imsize), units=units, pos=(-150, 0))
 
 f_key = visual.TextStim(win, text=f_key_text, color=[-1, -1, -1], pos=(-150, -160), units=units)
-j_key = visual.TextStim(win, text=f_key_text, color=[-1, -1, -1], pos=(150, -160), units=units)
+j_key = visual.TextStim(win, text=j_key_text, color=[-1, -1, -1], pos=(150, -160), units=units)
 
 practice.draw()
 cat_pic.draw()
